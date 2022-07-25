@@ -1,0 +1,65 @@
+[project]
+name = "ansible-events-qa"
+description = "Test suite and QA tools for ansible events"
+readme = "README.md"
+requires-python = ">=3.8"
+
+maintainers = [{ name = "Alejandro Izquierdo", email = "aizquier@redhat.com" }]
+
+classifiers = [
+  "Natural Language :: English",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Testing",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Operating System :: OS Independent",
+  "Private :: Do Not Upload",
+]
+
+keywords = [
+  "pytest",
+  "plugin",
+  "eda",
+  "ansible-events",
+  "ansible",
+  "ansible-event-driven",
+  "expert system",
+]
+
+dependencies = ["pytest"]
+
+dynamic = ["version"]
+
+[project.optional-dependencies]
+test = ["pre-commit"]
+dev = [
+  "pre-commit",
+  "black",
+  "flake8",
+  "flake8-bugbear",
+  "flake8-builtins",
+  "flake8-eradicate",
+  "flake8-debugger",
+  "flake8-comprehensions",
+]
+
+[project.urls]
+source = "https://github.com/Alex-Izquierdo/ansible-events-qa"
+
+[tool.black]
+line-length = 100
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "ansible_events_qa/__version__.py"
+
+[tool.hatch.build.targets.sdist]
+[tool.hatch.build.targets.wheel]
