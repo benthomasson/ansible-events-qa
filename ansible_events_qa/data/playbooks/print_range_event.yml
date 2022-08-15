@@ -1,0 +1,6 @@
+- name: print an event
+  hosts: all
+  gather_facts: false
+  tasks:
+    - debug:
+        msg: "matched {{ event.i }}"
