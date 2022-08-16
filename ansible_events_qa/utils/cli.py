@@ -26,6 +26,7 @@ class CLIRunner:
     proc_id: Optional[str] = None
     verbose: bool = False
     debug: bool = False
+    timeout: float = 10.0
 
     def _process_args(self) -> List[str]:
         args = [
@@ -53,4 +54,4 @@ class CLIRunner:
 
     def run(self):
         args = self._process_args()
-        return subprocess.run(args, cwd=self.cwd, capture_output=True)
+        return subprocess.run(args, cwd=self.cwd, capture_output=True, timeout=self.timeout)
