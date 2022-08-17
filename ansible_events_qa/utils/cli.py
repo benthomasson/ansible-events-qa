@@ -54,4 +54,6 @@ class CLIRunner:
 
     def run(self):
         args = self._process_args()
-        return subprocess.run(args, cwd=self.cwd, capture_output=True, timeout=self.timeout)
+        return subprocess.run(
+            args, cwd=self.cwd, capture_output=True, timeout=self.timeout, check=True
+        )
