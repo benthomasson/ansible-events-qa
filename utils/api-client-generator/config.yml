@@ -1,0 +1,4 @@
+projectName: ansible_events_api
+packageName: ansible_events_api
+generateSourceCodeOnly: true
+packageVersion: 1.0.0
