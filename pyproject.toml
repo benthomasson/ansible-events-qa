@@ -36,6 +36,8 @@ dependencies = [
   "pytest-datadir",
   "urllib3 >= 1.25.3",
   "python-dateutil",
+  "dynaconf[yaml]",
+  "cryptography",
 ]
 
 dynamic = ["version"]
@@ -55,6 +57,9 @@ dev = [
 
 [project.urls]
 source = "https://github.com/Alex-Izquierdo/ansible-events-qa"
+
+[project.scripts]
+aeqe = "ansible_events_qa.cmd:main"
 
 [tool.black]
 line-length = 100

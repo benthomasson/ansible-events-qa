@@ -16,3 +16,6 @@ dist/
 .venv
 .vscode
 .idea
+
+# config
+.env

@@ -7,7 +7,7 @@ def test_match_condition_sanity():
     Basic test to check that a condition is met with range plugin
     """
 
-    rules = get_data_path("rulesets/test_match_condition.yml")
+    rules = get_data_path("/rulesets/test_match_condition.yml")
     result = CLIRunner(rules=rules).run()
 
     assert result.returncode == 0

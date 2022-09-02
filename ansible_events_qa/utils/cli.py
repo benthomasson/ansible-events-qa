@@ -7,7 +7,7 @@ from typing import Optional
 from ansible_events_qa.utils import DATA_PATH
 from ansible_events_qa.utils import get_data_path
 
-DEFAULT_INVENTORY = get_data_path("inventories/default_inventory.yml")
+DEFAULT_INVENTORY = get_data_path("/inventories/default_inventory.yml")
 
 
 @dataclass
@@ -55,5 +55,9 @@ class CLIRunner:
     def run(self):
         args = self._process_args()
         return subprocess.run(
-            args, cwd=self.cwd, capture_output=True, timeout=self.timeout, check=True
+            args,
+            cwd=self.cwd,
+            capture_output=True,
+            timeout=self.timeout,
+            check=True,
         )
