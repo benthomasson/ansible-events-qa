@@ -846,10 +846,10 @@ class Endpoint(object):
         Example:
 
         api_instance = AuthApi()
-        api_instance.auth_jwt_login_api_auth_jwt_login_post  # this is an instance of the class Endpoint
-        api_instance.auth_jwt_login_api_auth_jwt_login_post()  # this invokes api_instance.auth_jwt_login_api_auth_jwt_login_post.__call__()
+        api_instance.auth_bearer_login_api_auth_bearer_login_post  # this is an instance of the class Endpoint
+        api_instance.auth_bearer_login_api_auth_bearer_login_post()  # this invokes api_instance.auth_bearer_login_api_auth_bearer_login_post.__call__()
         which then invokes the callable functions stored in that endpoint at
-        api_instance.auth_jwt_login_api_auth_jwt_login_post.callable or self.callable in this class
+        api_instance.auth_bearer_login_api_auth_bearer_login_post.callable or self.callable in this class
 
         """
         return self.callable(self, *args, **kwargs)

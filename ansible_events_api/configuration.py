@@ -407,6 +407,13 @@ class Configuration(object):
                     "APIKeyCookie",
                 ),
             }
+        if self.access_token is not None:
+            auth["OAuth2PasswordBearer"] = {
+                "type": "oauth2",
+                "in": "header",
+                "key": "Authorization",
+                "value": "Bearer " + self.access_token,
+            }
         return auth
 
     def to_debug_report(self):

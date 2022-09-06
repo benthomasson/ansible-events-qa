@@ -12,14 +12,18 @@ import sys  # noqa: F401
 from ansible_events_api.api_client import ApiClient
 from ansible_events_api.api_client import Endpoint as _Endpoint
 from ansible_events_api.model.activation import Activation
+from ansible_events_api.model.activation_instance import ActivationInstance
 from ansible_events_api.model.activation_log import ActivationLog
 from ansible_events_api.model.extravars import Extravars
 from ansible_events_api.model.http_validation_error import HTTPValidationError
 from ansible_events_api.model.inventory import Inventory
 from ansible_events_api.model.job_instance import JobInstance
 from ansible_events_api.model.project_create import ProjectCreate
+from ansible_events_api.model.project_detail import ProjectDetail
+from ansible_events_api.model.project_list import ProjectList
 from ansible_events_api.model.project_read import ProjectRead
 from ansible_events_api.model.project_update import ProjectUpdate
+from ansible_events_api.model.rule import Rule
 from ansible_events_api.model.rulebook import Rulebook
 from ansible_events_api.model_utils import check_allowed_values
 from ansible_events_api.model_utils import check_validations
@@ -54,7 +58,7 @@ class DefaultApi(object):
                     str,
                     none_type,
                 ),
-                "auth": ["APIKeyCookie"],
+                "auth": ["APIKeyCookie", "OAuth2PasswordBearer"],
                 "endpoint_path": "/api/authenticated-route",
                 "operation_id": "authenticated_route_api_authenticated_route_get",
                 "http_method": "GET",
@@ -75,22 +79,12 @@ class DefaultApi(object):
             },
             api_client=api_client,
         )
-        self.create_activation_instance_api_activation_instance_post_endpoint = _Endpoint(
+        self.create_activation_endpoint = _Endpoint(
             settings={
-                "response_type": (
-                    bool,
-                    date,
-                    datetime,
-                    dict,
-                    float,
-                    int,
-                    list,
-                    str,
-                    none_type,
-                ),
+                "response_type": (Activation,),
                 "auth": [],
-                "endpoint_path": "/api/activation_instance/",
-                "operation_id": "create_activation_instance_api_activation_instance_post",
+                "endpoint_path": "/api/activations/",
+                "operation_id": "create_activation",
                 "http_method": "POST",
                 "servers": None,
             },
@@ -114,6 +108,51 @@ class DefaultApi(object):
                 "attribute_map": {},
                 "location_map": {
                     "activation": "body",
+                },
+                "collection_format_map": {},
+            },
+            headers_map={"accept": ["application/json"], "content_type": ["application/json"]},
+            api_client=api_client,
+        )
+        self.create_activation_instance_api_activation_instance_post_endpoint = _Endpoint(
+            settings={
+                "response_type": (
+                    bool,
+                    date,
+                    datetime,
+                    dict,
+                    float,
+                    int,
+                    list,
+                    str,
+                    none_type,
+                ),
+                "auth": [],
+                "endpoint_path": "/api/activation_instance/",
+                "operation_id": "create_activation_instance_api_activation_instance_post",
+                "http_method": "POST",
+                "servers": None,
+            },
+            params_map={
+                "all": [
+                    "activation_instance",
+                ],
+                "required": [
+                    "activation_instance",
+                ],
+                "nullable": [],
+                "enum": [],
+                "validation": [],
+            },
+            root_map={
+                "validations": {},
+                "allowed_values": {},
+                "openapi_types": {
+                    "activation_instance": (ActivationInstance,),
+                },
+                "attribute_map": {},
+                "location_map": {
+                    "activation_instance": "body",
                 },
                 "collection_format_map": {},
             },
@@ -255,22 +294,12 @@ class DefaultApi(object):
             headers_map={"accept": ["application/json"], "content_type": ["application/json"]},
             api_client=api_client,
         )
-        self.create_project_api_new_project_post_endpoint = _Endpoint(
+        self.create_projects_endpoint = _Endpoint(
             settings={
-                "response_type": (
-                    bool,
-                    date,
-                    datetime,
-                    dict,
-                    float,
-                    int,
-                    list,
-                    str,
-                    none_type,
-                ),
+                "response_type": (ProjectRead,),
                 "auth": [],
-                "endpoint_path": "/api/new-project/",
-                "operation_id": "create_project_api_new_project_post",
+                "endpoint_path": "/api/projects/",
+                "operation_id": "create_projects",
                 "http_method": "POST",
                 "servers": None,
             },
@@ -386,6 +415,126 @@ class DefaultApi(object):
                 },
                 "location_map": {
                     "activation_instance_id": "query",
+                },
+                "collection_format_map": {},
+            },
+            headers_map={
+                "accept": ["application/json"],
+                "content_type": [],
+            },
+            api_client=api_client,
+        )
+        self.delete_activation_instance_endpoint = _Endpoint(
+            settings={
+                "response_type": None,
+                "auth": [],
+                "endpoint_path": "/api/activation_instance/{activation_instance_id}",
+                "operation_id": "delete_activation_instance",
+                "http_method": "DELETE",
+                "servers": None,
+            },
+            params_map={
+                "all": [
+                    "activation_instance_id",
+                ],
+                "required": [
+                    "activation_instance_id",
+                ],
+                "nullable": [],
+                "enum": [],
+                "validation": [],
+            },
+            root_map={
+                "validations": {},
+                "allowed_values": {},
+                "openapi_types": {
+                    "activation_instance_id": (int,),
+                },
+                "attribute_map": {
+                    "activation_instance_id": "activation_instance_id",
+                },
+                "location_map": {
+                    "activation_instance_id": "path",
+                },
+                "collection_format_map": {},
+            },
+            headers_map={
+                "accept": ["application/json"],
+                "content_type": [],
+            },
+            api_client=api_client,
+        )
+        self.delete_job_instance_endpoint = _Endpoint(
+            settings={
+                "response_type": None,
+                "auth": [],
+                "endpoint_path": "/api/job_instance/{job_instance_id}",
+                "operation_id": "delete_job_instance",
+                "http_method": "DELETE",
+                "servers": None,
+            },
+            params_map={
+                "all": [
+                    "job_instance_id",
+                ],
+                "required": [
+                    "job_instance_id",
+                ],
+                "nullable": [],
+                "enum": [],
+                "validation": [],
+            },
+            root_map={
+                "validations": {},
+                "allowed_values": {},
+                "openapi_types": {
+                    "job_instance_id": (int,),
+                },
+                "attribute_map": {
+                    "job_instance_id": "job_instance_id",
+                },
+                "location_map": {
+                    "job_instance_id": "path",
+                },
+                "collection_format_map": {},
+            },
+            headers_map={
+                "accept": ["application/json"],
+                "content_type": [],
+            },
+            api_client=api_client,
+        )
+        self.delete_project_endpoint = _Endpoint(
+            settings={
+                "response_type": None,
+                "auth": [],
+                "endpoint_path": "/api/project/{project_id}",
+                "operation_id": "delete_project",
+                "http_method": "DELETE",
+                "servers": None,
+            },
+            params_map={
+                "all": [
+                    "project_id",
+                ],
+                "required": [
+                    "project_id",
+                ],
+                "nullable": [],
+                "enum": [],
+                "validation": [],
+            },
+            root_map={
+                "validations": {},
+                "allowed_values": {},
+                "openapi_types": {
+                    "project_id": (int,),
+                },
+                "attribute_map": {
+                    "project_id": "project_id",
+                },
+                "location_map": {
+                    "project_id": "path",
                 },
                 "collection_format_map": {},
             },
@@ -605,22 +754,12 @@ class DefaultApi(object):
             },
             api_client=api_client,
         )
-        self.list_projects_api_projects_get_endpoint = _Endpoint(
+        self.list_projects_endpoint = _Endpoint(
             settings={
-                "response_type": (
-                    bool,
-                    date,
-                    datetime,
-                    dict,
-                    float,
-                    int,
-                    list,
-                    str,
-                    none_type,
-                ),
+                "response_type": ([ProjectList],),
                 "auth": [],
                 "endpoint_path": "/api/projects/",
-                "operation_id": "list_projects_api_projects_get",
+                "operation_id": "list_projects",
                 "http_method": "GET",
                 "servers": None,
             },
@@ -673,22 +812,12 @@ class DefaultApi(object):
             },
             api_client=api_client,
         )
-        self.list_rules_api_rules_get_endpoint = _Endpoint(
+        self.list_rules_endpoint = _Endpoint(
             settings={
-                "response_type": (
-                    bool,
-                    date,
-                    datetime,
-                    dict,
-                    float,
-                    int,
-                    list,
-                    str,
-                    none_type,
-                ),
+                "response_type": ([Rule],),
                 "auth": [],
                 "endpoint_path": "/api/rules/",
-                "operation_id": "list_rules_api_rules_get",
+                "operation_id": "list_rules",
                 "http_method": "GET",
                 "servers": None,
             },
@@ -1125,63 +1254,12 @@ class DefaultApi(object):
             },
             api_client=api_client,
         )
-        self.read_project_api_project_project_id_edit_patch_endpoint = _Endpoint(
+        self.read_project_endpoint = _Endpoint(
             settings={
-                "response_type": (
-                    bool,
-                    date,
-                    datetime,
-                    dict,
-                    float,
-                    int,
-                    list,
-                    str,
-                    none_type,
-                ),
+                "response_type": (ProjectDetail,),
                 "auth": [],
-                "endpoint_path": "/api/project/{project_id}/edit",
-                "operation_id": "read_project_api_project_project_id_edit_patch",
-                "http_method": "PATCH",
-                "servers": None,
-            },
-            params_map={
-                "all": [
-                    "project_id",
-                    "project_update",
-                ],
-                "required": [
-                    "project_id",
-                    "project_update",
-                ],
-                "nullable": [],
-                "enum": [],
-                "validation": [],
-            },
-            root_map={
-                "validations": {},
-                "allowed_values": {},
-                "openapi_types": {
-                    "project_id": (int,),
-                    "project_update": (ProjectUpdate,),
-                },
-                "attribute_map": {
-                    "project_id": "project_id",
-                },
-                "location_map": {
-                    "project_id": "path",
-                    "project_update": "body",
-                },
-                "collection_format_map": {},
-            },
-            headers_map={"accept": ["application/json"], "content_type": ["application/json"]},
-            api_client=api_client,
-        )
-        self.read_project_api_project_project_id_get_endpoint = _Endpoint(
-            settings={
-                "response_type": (ProjectRead,),
-                "auth": [],
-                "endpoint_path": "/api/project/{project_id}",
-                "operation_id": "read_project_api_project_project_id_get",
+                "endpoint_path": "/api/projects/{project_id}",
+                "operation_id": "read_project",
                 "http_method": "GET",
                 "servers": None,
             },
@@ -1350,22 +1428,12 @@ class DefaultApi(object):
             },
             api_client=api_client,
         )
-        self.show_rule_api_rules_rule_id_get_endpoint = _Endpoint(
+        self.show_rule_endpoint = _Endpoint(
             settings={
-                "response_type": (
-                    bool,
-                    date,
-                    datetime,
-                    dict,
-                    float,
-                    int,
-                    list,
-                    str,
-                    none_type,
-                ),
+                "response_type": (Rule,),
                 "auth": [],
                 "endpoint_path": "/api/rules/{rule_id}/",
-                "operation_id": "show_rule_api_rules_rule_id_get",
+                "operation_id": "show_rule",
                 "http_method": "GET",
                 "servers": None,
             },
@@ -1398,6 +1466,47 @@ class DefaultApi(object):
                 "accept": ["application/json"],
                 "content_type": [],
             },
+            api_client=api_client,
+        )
+        self.update_project_endpoint = _Endpoint(
+            settings={
+                "response_type": (ProjectRead,),
+                "auth": [],
+                "endpoint_path": "/api/projects/{project_id}",
+                "operation_id": "update_project",
+                "http_method": "PATCH",
+                "servers": None,
+            },
+            params_map={
+                "all": [
+                    "project_id",
+                    "project_update",
+                ],
+                "required": [
+                    "project_id",
+                    "project_update",
+                ],
+                "nullable": [],
+                "enum": [],
+                "validation": [],
+            },
+            root_map={
+                "validations": {},
+                "allowed_values": {},
+                "openapi_types": {
+                    "project_id": (int,),
+                    "project_update": (ProjectUpdate,),
+                },
+                "attribute_map": {
+                    "project_id": "project_id",
+                },
+                "location_map": {
+                    "project_id": "path",
+                    "project_update": "body",
+                },
+                "collection_format_map": {},
+            },
+            headers_map={"accept": ["application/json"], "content_type": ["application/json"]},
             api_client=api_client,
         )
 
@@ -1462,17 +1571,81 @@ class DefaultApi(object):
             **kwargs
         )
 
-    def create_activation_instance_api_activation_instance_post(self, activation, **kwargs):
+    def create_activation(self, activation, **kwargs):
+        """Create Activation  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.create_activation(activation, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            activation (Activation):
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            Activation
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs["async_req"] = kwargs.get("async_req", False)
+        kwargs["_return_http_data_only"] = kwargs.get("_return_http_data_only", True)
+        kwargs["_preload_content"] = kwargs.get("_preload_content", True)
+        kwargs["_request_timeout"] = kwargs.get("_request_timeout", None)
+        kwargs["_check_input_type"] = kwargs.get("_check_input_type", True)
+        kwargs["_check_return_type"] = kwargs.get("_check_return_type", True)
+        kwargs["_spec_property_naming"] = kwargs.get("_spec_property_naming", False)
+        kwargs["_content_type"] = kwargs.get("_content_type")
+        kwargs["_host_index"] = kwargs.get("_host_index")
+        kwargs["_request_auths"] = kwargs.get("_request_auths", None)
+        kwargs["activation"] = activation
+        return self.create_activation_endpoint.call_with_http_info(**kwargs)
+
+    def create_activation_instance_api_activation_instance_post(
+        self, activation_instance, **kwargs
+    ):
         """Create Activation Instance  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_activation_instance_api_activation_instance_post(activation, async_req=True)
+        >>> thread = api.create_activation_instance_api_activation_instance_post(activation_instance, async_req=True)
         >>> result = thread.get()
 
         Args:
-            activation (Activation):
+            activation_instance (ActivationInstance):
 
         Keyword Args:
             _return_http_data_only (bool): response data without head status
@@ -1521,7 +1694,7 @@ class DefaultApi(object):
         kwargs["_content_type"] = kwargs.get("_content_type")
         kwargs["_host_index"] = kwargs.get("_host_index")
         kwargs["_request_auths"] = kwargs.get("_request_auths", None)
-        kwargs["activation"] = activation
+        kwargs["activation_instance"] = activation_instance
         return self.create_activation_instance_api_activation_instance_post_endpoint.call_with_http_info(
             **kwargs
         )
@@ -1712,13 +1885,13 @@ class DefaultApi(object):
         kwargs["job_instance"] = job_instance
         return self.create_job_instance_api_job_instance_post_endpoint.call_with_http_info(**kwargs)
 
-    def create_project_api_new_project_post(self, project_create, **kwargs):
+    def create_projects(self, project_create, **kwargs):
         """Create Project  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_project_api_new_project_post(project_create, async_req=True)
+        >>> thread = api.create_projects(project_create, async_req=True)
         >>> result = thread.get()
 
         Args:
@@ -1757,7 +1930,7 @@ class DefaultApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            bool, date, datetime, dict, float, int, list, str, none_type
+            ProjectRead
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -1772,7 +1945,7 @@ class DefaultApi(object):
         kwargs["_host_index"] = kwargs.get("_host_index")
         kwargs["_request_auths"] = kwargs.get("_request_auths", None)
         kwargs["project_create"] = project_create
-        return self.create_project_api_new_project_post_endpoint.call_with_http_info(**kwargs)
+        return self.create_projects_endpoint.call_with_http_info(**kwargs)
 
     def create_rulebook_api_rulebooks_post(self, rulebook, **kwargs):
         """Create Rulebook  # noqa: E501
@@ -1897,6 +2070,192 @@ class DefaultApi(object):
         kwargs["_request_auths"] = kwargs.get("_request_auths", None)
         kwargs["activation_instance_id"] = activation_instance_id
         return self.deactivate_api_deactivate_post_endpoint.call_with_http_info(**kwargs)
+
+    def delete_activation_instance(self, activation_instance_id, **kwargs):
+        """Delete Activation Instance  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.delete_activation_instance(activation_instance_id, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            activation_instance_id (int):
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            None
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs["async_req"] = kwargs.get("async_req", False)
+        kwargs["_return_http_data_only"] = kwargs.get("_return_http_data_only", True)
+        kwargs["_preload_content"] = kwargs.get("_preload_content", True)
+        kwargs["_request_timeout"] = kwargs.get("_request_timeout", None)
+        kwargs["_check_input_type"] = kwargs.get("_check_input_type", True)
+        kwargs["_check_return_type"] = kwargs.get("_check_return_type", True)
+        kwargs["_spec_property_naming"] = kwargs.get("_spec_property_naming", False)
+        kwargs["_content_type"] = kwargs.get("_content_type")
+        kwargs["_host_index"] = kwargs.get("_host_index")
+        kwargs["_request_auths"] = kwargs.get("_request_auths", None)
+        kwargs["activation_instance_id"] = activation_instance_id
+        return self.delete_activation_instance_endpoint.call_with_http_info(**kwargs)
+
+    def delete_job_instance(self, job_instance_id, **kwargs):
+        """Delete Job Instance  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.delete_job_instance(job_instance_id, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            job_instance_id (int):
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            None
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs["async_req"] = kwargs.get("async_req", False)
+        kwargs["_return_http_data_only"] = kwargs.get("_return_http_data_only", True)
+        kwargs["_preload_content"] = kwargs.get("_preload_content", True)
+        kwargs["_request_timeout"] = kwargs.get("_request_timeout", None)
+        kwargs["_check_input_type"] = kwargs.get("_check_input_type", True)
+        kwargs["_check_return_type"] = kwargs.get("_check_return_type", True)
+        kwargs["_spec_property_naming"] = kwargs.get("_spec_property_naming", False)
+        kwargs["_content_type"] = kwargs.get("_content_type")
+        kwargs["_host_index"] = kwargs.get("_host_index")
+        kwargs["_request_auths"] = kwargs.get("_request_auths", None)
+        kwargs["job_instance_id"] = job_instance_id
+        return self.delete_job_instance_endpoint.call_with_http_info(**kwargs)
+
+    def delete_project(self, project_id, **kwargs):
+        """Delete Project  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.delete_project(project_id, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            project_id (int):
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            None
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs["async_req"] = kwargs.get("async_req", False)
+        kwargs["_return_http_data_only"] = kwargs.get("_return_http_data_only", True)
+        kwargs["_preload_content"] = kwargs.get("_preload_content", True)
+        kwargs["_request_timeout"] = kwargs.get("_request_timeout", None)
+        kwargs["_check_input_type"] = kwargs.get("_check_input_type", True)
+        kwargs["_check_return_type"] = kwargs.get("_check_return_type", True)
+        kwargs["_spec_property_naming"] = kwargs.get("_spec_property_naming", False)
+        kwargs["_content_type"] = kwargs.get("_content_type")
+        kwargs["_host_index"] = kwargs.get("_host_index")
+        kwargs["_request_auths"] = kwargs.get("_request_auths", None)
+        kwargs["project_id"] = project_id
+        return self.delete_project_endpoint.call_with_http_info(**kwargs)
 
     def list_activation_instance_logs_api_activation_instance_logs_get(
         self, activation_instance_id, **kwargs
@@ -2261,13 +2620,13 @@ class DefaultApi(object):
         kwargs["_request_auths"] = kwargs.get("_request_auths", None)
         return self.list_playbooks_api_playbooks_get_endpoint.call_with_http_info(**kwargs)
 
-    def list_projects_api_projects_get(self, **kwargs):
+    def list_projects(self, **kwargs):
         """List Projects  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_projects_api_projects_get(async_req=True)
+        >>> thread = api.list_projects(async_req=True)
         >>> result = thread.get()
 
 
@@ -2304,7 +2663,7 @@ class DefaultApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            bool, date, datetime, dict, float, int, list, str, none_type
+            [ProjectList]
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -2318,7 +2677,7 @@ class DefaultApi(object):
         kwargs["_content_type"] = kwargs.get("_content_type")
         kwargs["_host_index"] = kwargs.get("_host_index")
         kwargs["_request_auths"] = kwargs.get("_request_auths", None)
-        return self.list_projects_api_projects_get_endpoint.call_with_http_info(**kwargs)
+        return self.list_projects_endpoint.call_with_http_info(**kwargs)
 
     def list_rulebooks_api_rulebooks_get(self, **kwargs):
         """List Rulebooks  # noqa: E501
@@ -2379,13 +2738,13 @@ class DefaultApi(object):
         kwargs["_request_auths"] = kwargs.get("_request_auths", None)
         return self.list_rulebooks_api_rulebooks_get_endpoint.call_with_http_info(**kwargs)
 
-    def list_rules_api_rules_get(self, **kwargs):
+    def list_rules(self, **kwargs):
         """List Rules  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_rules_api_rules_get(async_req=True)
+        >>> thread = api.list_rules(async_req=True)
         >>> result = thread.get()
 
 
@@ -2422,7 +2781,7 @@ class DefaultApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            bool, date, datetime, dict, float, int, list, str, none_type
+            [Rule]
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -2436,7 +2795,7 @@ class DefaultApi(object):
         kwargs["_content_type"] = kwargs.get("_content_type")
         kwargs["_host_index"] = kwargs.get("_host_index")
         kwargs["_request_auths"] = kwargs.get("_request_auths", None)
-        return self.list_rules_api_rules_get_endpoint.call_with_http_info(**kwargs)
+        return self.list_rules_endpoint.call_with_http_info(**kwargs)
 
     def list_tasks_api_tasks_get(self, **kwargs):
         """List Tasks  # noqa: E501
@@ -3010,79 +3369,13 @@ class DefaultApi(object):
             **kwargs
         )
 
-    def read_project_api_project_project_id_edit_patch(self, project_id, project_update, **kwargs):
+    def read_project(self, project_id, **kwargs):
         """Read Project  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.read_project_api_project_project_id_edit_patch(project_id, project_update, async_req=True)
-        >>> result = thread.get()
-
-        Args:
-            project_id (int):
-            project_update (ProjectUpdate):
-
-        Keyword Args:
-            _return_http_data_only (bool): response data without head status
-                code and headers. Default is True.
-            _preload_content (bool): if False, the urllib3.HTTPResponse object
-                will be returned without reading/decoding response data.
-                Default is True.
-            _request_timeout (int/float/tuple): timeout setting for this request. If
-                one number provided, it will be total request timeout. It can also
-                be a pair (tuple) of (connection, read) timeouts.
-                Default is None.
-            _check_input_type (bool): specifies if type checking
-                should be done one the data sent to the server.
-                Default is True.
-            _check_return_type (bool): specifies if type checking
-                should be done one the data received from the server.
-                Default is True.
-            _spec_property_naming (bool): True if the variable names in the input data
-                are serialized names, as specified in the OpenAPI document.
-                False if the variable names in the input data
-                are pythonic names, e.g. snake case (default)
-            _content_type (str/None): force body content-type.
-                Default is None and content-type will be predicted by allowed
-                content-types and body.
-            _host_index (int/None): specifies the index of the server
-                that we want to use.
-                Default is read from the configuration.
-            _request_auths (list): set to override the auth_settings for an a single
-                request; this effectively ignores the authentication
-                in the spec for a single request.
-                Default is None
-            async_req (bool): execute request asynchronously
-
-        Returns:
-            bool, date, datetime, dict, float, int, list, str, none_type
-                If the method is called asynchronously, returns the request
-                thread.
-        """
-        kwargs["async_req"] = kwargs.get("async_req", False)
-        kwargs["_return_http_data_only"] = kwargs.get("_return_http_data_only", True)
-        kwargs["_preload_content"] = kwargs.get("_preload_content", True)
-        kwargs["_request_timeout"] = kwargs.get("_request_timeout", None)
-        kwargs["_check_input_type"] = kwargs.get("_check_input_type", True)
-        kwargs["_check_return_type"] = kwargs.get("_check_return_type", True)
-        kwargs["_spec_property_naming"] = kwargs.get("_spec_property_naming", False)
-        kwargs["_content_type"] = kwargs.get("_content_type")
-        kwargs["_host_index"] = kwargs.get("_host_index")
-        kwargs["_request_auths"] = kwargs.get("_request_auths", None)
-        kwargs["project_id"] = project_id
-        kwargs["project_update"] = project_update
-        return self.read_project_api_project_project_id_edit_patch_endpoint.call_with_http_info(
-            **kwargs
-        )
-
-    def read_project_api_project_project_id_get(self, project_id, **kwargs):
-        """Read Project  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.read_project_api_project_project_id_get(project_id, async_req=True)
+        >>> thread = api.read_project(project_id, async_req=True)
         >>> result = thread.get()
 
         Args:
@@ -3121,7 +3414,7 @@ class DefaultApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            ProjectRead
+            ProjectDetail
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -3136,7 +3429,7 @@ class DefaultApi(object):
         kwargs["_host_index"] = kwargs.get("_host_index")
         kwargs["_request_auths"] = kwargs.get("_request_auths", None)
         kwargs["project_id"] = project_id
-        return self.read_project_api_project_project_id_get_endpoint.call_with_http_info(**kwargs)
+        return self.read_project_endpoint.call_with_http_info(**kwargs)
 
     def read_rulebook_api_rulebooks_rulebook_id_get(self, rulebook_id, **kwargs):
         """Read Rulebook  # noqa: E501
@@ -3327,13 +3620,13 @@ class DefaultApi(object):
         kwargs["_request_auths"] = kwargs.get("_request_auths", None)
         return self.root_get_endpoint.call_with_http_info(**kwargs)
 
-    def show_rule_api_rules_rule_id_get(self, rule_id, **kwargs):
+    def show_rule(self, rule_id, **kwargs):
         """Show Rule  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.show_rule_api_rules_rule_id_get(rule_id, async_req=True)
+        >>> thread = api.show_rule(rule_id, async_req=True)
         >>> result = thread.get()
 
         Args:
@@ -3372,7 +3665,7 @@ class DefaultApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            bool, date, datetime, dict, float, int, list, str, none_type
+            Rule
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -3387,4 +3680,68 @@ class DefaultApi(object):
         kwargs["_host_index"] = kwargs.get("_host_index")
         kwargs["_request_auths"] = kwargs.get("_request_auths", None)
         kwargs["rule_id"] = rule_id
-        return self.show_rule_api_rules_rule_id_get_endpoint.call_with_http_info(**kwargs)
+        return self.show_rule_endpoint.call_with_http_info(**kwargs)
+
+    def update_project(self, project_id, project_update, **kwargs):
+        """Update Project  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.update_project(project_id, project_update, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            project_id (int):
+            project_update (ProjectUpdate):
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            ProjectRead
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs["async_req"] = kwargs.get("async_req", False)
+        kwargs["_return_http_data_only"] = kwargs.get("_return_http_data_only", True)
+        kwargs["_preload_content"] = kwargs.get("_preload_content", True)
+        kwargs["_request_timeout"] = kwargs.get("_request_timeout", None)
+        kwargs["_check_input_type"] = kwargs.get("_check_input_type", True)
+        kwargs["_check_return_type"] = kwargs.get("_check_return_type", True)
+        kwargs["_spec_property_naming"] = kwargs.get("_spec_property_naming", False)
+        kwargs["_content_type"] = kwargs.get("_content_type")
+        kwargs["_host_index"] = kwargs.get("_host_index")
+        kwargs["_request_auths"] = kwargs.get("_request_auths", None)
+        kwargs["project_id"] = project_id
+        kwargs["project_update"] = project_update
+        return self.update_project_endpoint.call_with_http_info(**kwargs)

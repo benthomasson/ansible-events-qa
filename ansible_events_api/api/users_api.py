@@ -38,7 +38,7 @@ class UsersApi(object):
         self.users_current_user_api_users_me_get_endpoint = _Endpoint(
             settings={
                 "response_type": (UserRead,),
-                "auth": ["APIKeyCookie"],
+                "auth": ["APIKeyCookie", "OAuth2PasswordBearer"],
                 "endpoint_path": "/api/users/me",
                 "operation_id": "users_current_user_api_users_me_get",
                 "http_method": "GET",
@@ -62,7 +62,7 @@ class UsersApi(object):
         self.users_delete_user_api_users_id_delete_endpoint = _Endpoint(
             settings={
                 "response_type": None,
-                "auth": ["APIKeyCookie"],
+                "auth": ["APIKeyCookie", "OAuth2PasswordBearer"],
                 "endpoint_path": "/api/users/{id}",
                 "operation_id": "users_delete_user_api_users_id_delete",
                 "http_method": "DELETE",
@@ -112,7 +112,7 @@ class UsersApi(object):
         self.users_patch_current_user_api_users_me_patch_endpoint = _Endpoint(
             settings={
                 "response_type": (UserRead,),
-                "auth": ["APIKeyCookie"],
+                "auth": ["APIKeyCookie", "OAuth2PasswordBearer"],
                 "endpoint_path": "/api/users/me",
                 "operation_id": "users_patch_current_user_api_users_me_patch",
                 "http_method": "PATCH",
@@ -147,7 +147,7 @@ class UsersApi(object):
         self.users_patch_user_api_users_id_patch_endpoint = _Endpoint(
             settings={
                 "response_type": (UserRead,),
-                "auth": ["APIKeyCookie"],
+                "auth": ["APIKeyCookie", "OAuth2PasswordBearer"],
                 "endpoint_path": "/api/users/{id}",
                 "operation_id": "users_patch_user_api_users_id_patch",
                 "http_method": "PATCH",
@@ -198,7 +198,7 @@ class UsersApi(object):
         self.users_user_api_users_id_get_endpoint = _Endpoint(
             settings={
                 "response_type": (UserRead,),
-                "auth": ["APIKeyCookie"],
+                "auth": ["APIKeyCookie", "OAuth2PasswordBearer"],
                 "endpoint_path": "/api/users/{id}",
                 "operation_id": "users_user_api_users_id_get",
                 "http_method": "GET",

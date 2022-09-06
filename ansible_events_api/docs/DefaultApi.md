@@ -5,22 +5,26 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**authenticated_route_api_authenticated_route_get**](DefaultApi.md#authenticated_route_api_authenticated_route_get) | **GET** /api/authenticated-route | Authenticated Route
+[**create_activation**](DefaultApi.md#create_activation) | **POST** /api/activations/ | Create Activation
 [**create_activation_instance_api_activation_instance_post**](DefaultApi.md#create_activation_instance_api_activation_instance_post) | **POST** /api/activation_instance/ | Create Activation Instance
 [**create_extra_vars_api_extra_vars_post**](DefaultApi.md#create_extra_vars_api_extra_vars_post) | **POST** /api/extra_vars/ | Create Extra Vars
 [**create_inventory_api_inventory_post**](DefaultApi.md#create_inventory_api_inventory_post) | **POST** /api/inventory/ | Create Inventory
 [**create_job_instance_api_job_instance_post**](DefaultApi.md#create_job_instance_api_job_instance_post) | **POST** /api/job_instance/ | Create Job Instance
-[**create_project_api_new_project_post**](DefaultApi.md#create_project_api_new_project_post) | **POST** /api/new-project/ | Create Project
+[**create_projects**](DefaultApi.md#create_projects) | **POST** /api/projects/ | Create Project
 [**create_rulebook_api_rulebooks_post**](DefaultApi.md#create_rulebook_api_rulebooks_post) | **POST** /api/rulebooks/ | Create Rulebook
 [**deactivate_api_deactivate_post**](DefaultApi.md#deactivate_api_deactivate_post) | **POST** /api/deactivate/ | Deactivate
+[**delete_activation_instance**](DefaultApi.md#delete_activation_instance) | **DELETE** /api/activation_instance/{activation_instance_id} | Delete Activation Instance
+[**delete_job_instance**](DefaultApi.md#delete_job_instance) | **DELETE** /api/job_instance/{job_instance_id} | Delete Job Instance
+[**delete_project**](DefaultApi.md#delete_project) | **DELETE** /api/project/{project_id} | Delete Project
 [**list_activation_instance_logs_api_activation_instance_logs_get**](DefaultApi.md#list_activation_instance_logs_api_activation_instance_logs_get) | **GET** /api/activation_instance_logs/ | List Activation Instance Logs
 [**list_activation_instances_api_activation_instances_get**](DefaultApi.md#list_activation_instances_api_activation_instances_get) | **GET** /api/activation_instances/ | List Activation Instances
 [**list_extra_vars_api_extra_vars_get**](DefaultApi.md#list_extra_vars_api_extra_vars_get) | **GET** /api/extra_vars/ | List Extra Vars
 [**list_inventories_api_inventories_get**](DefaultApi.md#list_inventories_api_inventories_get) | **GET** /api/inventories/ | List Inventories
 [**list_job_instances_api_job_instances_get**](DefaultApi.md#list_job_instances_api_job_instances_get) | **GET** /api/job_instances/ | List Job Instances
 [**list_playbooks_api_playbooks_get**](DefaultApi.md#list_playbooks_api_playbooks_get) | **GET** /api/playbooks/ | List Playbooks
-[**list_projects_api_projects_get**](DefaultApi.md#list_projects_api_projects_get) | **GET** /api/projects/ | List Projects
+[**list_projects**](DefaultApi.md#list_projects) | **GET** /api/projects/ | List Projects
 [**list_rulebooks_api_rulebooks_get**](DefaultApi.md#list_rulebooks_api_rulebooks_get) | **GET** /api/rulebooks/ | List Rulebooks
-[**list_rules_api_rules_get**](DefaultApi.md#list_rules_api_rules_get) | **GET** /api/rules/ | List Rules
+[**list_rules**](DefaultApi.md#list_rules) | **GET** /api/rules/ | List Rules
 [**list_tasks_api_tasks_get**](DefaultApi.md#list_tasks_api_tasks_get) | **GET** /api/tasks/ | List Tasks
 [**ping_ping_get**](DefaultApi.md#ping_ping_get) | **GET** /ping | Ping
 [**read_activation_instance_api_activation_instance_activation_instance_id_get**](DefaultApi.md#read_activation_instance_api_activation_instance_activation_instance_id_get) | **GET** /api/activation_instance/{activation_instance_id} | Read Activation Instance
@@ -30,12 +34,12 @@ Method | HTTP request | Description
 [**read_job_instance_api_job_instance_job_instance_id_get**](DefaultApi.md#read_job_instance_api_job_instance_job_instance_id_get) | **GET** /api/job_instance/{job_instance_id} | Read Job Instance
 [**read_job_instance_events_api_job_instance_events_job_instance_id_get**](DefaultApi.md#read_job_instance_events_api_job_instance_events_job_instance_id_get) | **GET** /api/job_instance_events/{job_instance_id} | Read Job Instance Events
 [**read_playbook_api_playbook_playbook_id_get**](DefaultApi.md#read_playbook_api_playbook_playbook_id_get) | **GET** /api/playbook/{playbook_id} | Read Playbook
-[**read_project_api_project_project_id_edit_patch**](DefaultApi.md#read_project_api_project_project_id_edit_patch) | **PATCH** /api/project/{project_id}/edit | Read Project
-[**read_project_api_project_project_id_get**](DefaultApi.md#read_project_api_project_project_id_get) | **GET** /api/project/{project_id} | Read Project
+[**read_project**](DefaultApi.md#read_project) | **GET** /api/projects/{project_id} | Read Project
 [**read_rulebook_api_rulebooks_rulebook_id_get**](DefaultApi.md#read_rulebook_api_rulebooks_rulebook_id_get) | **GET** /api/rulebooks/{rulebook_id} | Read Rulebook
 [**read_rulebook_json_api_rulebook_json_rulebook_id_get**](DefaultApi.md#read_rulebook_json_api_rulebook_json_rulebook_id_get) | **GET** /api/rulebook_json/{rulebook_id} | Read Rulebook Json
 [**root_get**](DefaultApi.md#root_get) | **GET** / | Root
-[**show_rule_api_rules_rule_id_get**](DefaultApi.md#show_rule_api_rules_rule_id_get) | **GET** /api/rules/{rule_id}/ | Show Rule
+[**show_rule**](DefaultApi.md#show_rule) | **GET** /api/rules/{rule_id}/ | Show Rule
+[**update_project**](DefaultApi.md#update_project) | **PATCH** /api/projects/{project_id} | Update Project
 
 
 # **authenticated_route_api_authenticated_route_get**
@@ -46,6 +50,7 @@ Authenticated Route
 ### Example
 
 * Api Key Authentication (APIKeyCookie):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import time
@@ -68,6 +73,12 @@ configuration.api_key['APIKeyCookie'] = 'YOUR_API_KEY'
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyCookie'] = 'Bearer'
+
+# Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # Enter a context with an instance of the API client
 with ansible_events_api.ApiClient(configuration) as api_client:
@@ -93,7 +104,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[APIKeyCookie](../README.md#APIKeyCookie)
+[APIKeyCookie](../README.md#APIKeyCookie), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -109,10 +120,10 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_activation_instance_api_activation_instance_post**
-> bool, date, datetime, dict, float, int, list, str, none_type create_activation_instance_api_activation_instance_post(activation)
+# **create_activation**
+> Activation create_activation(activation)
 
-Create Activation Instance
+Create Activation
 
 ### Example
 
@@ -138,15 +149,93 @@ with ansible_events_api.ApiClient() as api_client:
     activation = Activation(
         id=1,
         name="name_example",
+        description="description_example",
+        execution_env_id=1,
         rulebook_id=1,
         inventory_id=1,
+        restart_policy_id=1,
+        playbook_id=1,
+        activation_enabled=True,
         extra_var_id=1,
     ) # Activation |
 
     # example passing only required values which don't have defaults set
     try:
+        # Create Activation
+        api_response = api_instance.create_activation(activation)
+        pprint(api_response)
+    except ansible_events_api.ApiException as e:
+        print("Exception when calling DefaultApi->create_activation: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **activation** | [**Activation**](Activation.md)|  |
+
+### Return type
+
+[**Activation**](Activation.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_activation_instance_api_activation_instance_post**
+> bool, date, datetime, dict, float, int, list, str, none_type create_activation_instance_api_activation_instance_post(activation_instance)
+
+Create Activation Instance
+
+### Example
+
+
+```python
+import time
+import ansible_events_api
+from ansible_events_api.api import default_api
+from ansible_events_api.model.activation_instance import ActivationInstance
+from ansible_events_api.model.http_validation_error import HTTPValidationError
+from pprint import pprint
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with ansible_events_api.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    activation_instance = ActivationInstance(
+        id=1,
+        name="name_example",
+        rulebook_id=1,
+        inventory_id=1,
+        extra_var_id=1,
+    ) # ActivationInstance |
+
+    # example passing only required values which don't have defaults set
+    try:
         # Create Activation Instance
-        api_response = api_instance.create_activation_instance_api_activation_instance_post(activation)
+        api_response = api_instance.create_activation_instance_api_activation_instance_post(activation_instance)
         pprint(api_response)
     except ansible_events_api.ApiException as e:
         print("Exception when calling DefaultApi->create_activation_instance_api_activation_instance_post: %s\n" % e)
@@ -157,7 +246,7 @@ with ansible_events_api.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **activation** | [**Activation**](Activation.md)|  |
+ **activation_instance** | [**ActivationInstance**](ActivationInstance.md)|  |
 
 ### Return type
 
@@ -396,8 +485,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_project_api_new_project_post**
-> bool, date, datetime, dict, float, int, list, str, none_type create_project_api_new_project_post(project_create)
+# **create_projects**
+> ProjectRead create_projects(project_create)
 
 Create Project
 
@@ -409,6 +498,7 @@ import time
 import ansible_events_api
 from ansible_events_api.api import default_api
 from ansible_events_api.model.http_validation_error import HTTPValidationError
+from ansible_events_api.model.project_read import ProjectRead
 from ansible_events_api.model.project_create import ProjectCreate
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
@@ -433,10 +523,10 @@ with ansible_events_api.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Create Project
-        api_response = api_instance.create_project_api_new_project_post(project_create)
+        api_response = api_instance.create_projects(project_create)
         pprint(api_response)
     except ansible_events_api.ApiException as e:
-        print("Exception when calling DefaultApi->create_project_api_new_project_post: %s\n" % e)
+        print("Exception when calling DefaultApi->create_projects: %s\n" % e)
 ```
 
 
@@ -448,7 +538,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+[**ProjectRead**](ProjectRead.md)
 
 ### Authorization
 
@@ -602,6 +692,201 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_activation_instance**
+> delete_activation_instance(activation_instance_id)
+
+Delete Activation Instance
+
+### Example
+
+
+```python
+import time
+import ansible_events_api
+from ansible_events_api.api import default_api
+from ansible_events_api.model.http_validation_error import HTTPValidationError
+from pprint import pprint
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with ansible_events_api.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    activation_instance_id = 1 # int |
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Delete Activation Instance
+        api_instance.delete_activation_instance(activation_instance_id)
+    except ansible_events_api.ApiException as e:
+        print("Exception when calling DefaultApi->delete_activation_instance: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **activation_instance_id** | **int**|  |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_job_instance**
+> delete_job_instance(job_instance_id)
+
+Delete Job Instance
+
+### Example
+
+
+```python
+import time
+import ansible_events_api
+from ansible_events_api.api import default_api
+from ansible_events_api.model.http_validation_error import HTTPValidationError
+from pprint import pprint
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with ansible_events_api.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    job_instance_id = 1 # int |
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Delete Job Instance
+        api_instance.delete_job_instance(job_instance_id)
+    except ansible_events_api.ApiException as e:
+        print("Exception when calling DefaultApi->delete_job_instance: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **job_instance_id** | **int**|  |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_project**
+> delete_project(project_id)
+
+Delete Project
+
+### Example
+
+
+```python
+import time
+import ansible_events_api
+from ansible_events_api.api import default_api
+from ansible_events_api.model.http_validation_error import HTTPValidationError
+from pprint import pprint
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with ansible_events_api.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    project_id = 1 # int |
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Delete Project
+        api_instance.delete_project(project_id)
+    except ansible_events_api.ApiException as e:
+        print("Exception when calling DefaultApi->delete_project: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **int**|  |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -973,8 +1258,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_projects_api_projects_get**
-> bool, date, datetime, dict, float, int, list, str, none_type list_projects_api_projects_get()
+# **list_projects**
+> [ProjectList] list_projects()
 
 List Projects
 
@@ -985,6 +1270,7 @@ List Projects
 import time
 import ansible_events_api
 from ansible_events_api.api import default_api
+from ansible_events_api.model.project_list import ProjectList
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1001,10 +1287,10 @@ with ansible_events_api.ApiClient() as api_client:
     # example, this endpoint has no required or optional parameters
     try:
         # List Projects
-        api_response = api_instance.list_projects_api_projects_get()
+        api_response = api_instance.list_projects()
         pprint(api_response)
     except ansible_events_api.ApiException as e:
-        print("Exception when calling DefaultApi->list_projects_api_projects_get: %s\n" % e)
+        print("Exception when calling DefaultApi->list_projects: %s\n" % e)
 ```
 
 
@@ -1013,7 +1299,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+[**[ProjectList]**](ProjectList.md)
 
 ### Authorization
 
@@ -1093,8 +1379,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_rules_api_rules_get**
-> bool, date, datetime, dict, float, int, list, str, none_type list_rules_api_rules_get()
+# **list_rules**
+> [Rule] list_rules()
 
 List Rules
 
@@ -1105,6 +1391,7 @@ List Rules
 import time
 import ansible_events_api
 from ansible_events_api.api import default_api
+from ansible_events_api.model.rule import Rule
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1121,10 +1408,10 @@ with ansible_events_api.ApiClient() as api_client:
     # example, this endpoint has no required or optional parameters
     try:
         # List Rules
-        api_response = api_instance.list_rules_api_rules_get()
+        api_response = api_instance.list_rules()
         pprint(api_response)
     except ansible_events_api.ApiException as e:
-        print("Exception when calling DefaultApi->list_rules_api_rules_get: %s\n" % e)
+        print("Exception when calling DefaultApi->list_rules: %s\n" % e)
 ```
 
 
@@ -1133,7 +1420,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+[**[Rule]**](Rule.md)
 
 ### Authorization
 
@@ -1735,8 +2022,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **read_project_api_project_project_id_edit_patch**
-> bool, date, datetime, dict, float, int, list, str, none_type read_project_api_project_project_id_edit_patch(project_id, project_update)
+# **read_project**
+> ProjectDetail read_project(project_id)
 
 Read Project
 
@@ -1747,79 +2034,8 @@ Read Project
 import time
 import ansible_events_api
 from ansible_events_api.api import default_api
-from ansible_events_api.model.project_update import ProjectUpdate
+from ansible_events_api.model.project_detail import ProjectDetail
 from ansible_events_api.model.http_validation_error import HTTPValidationError
-from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ansible_events_api.Configuration(
-    host = "http://localhost"
-)
-
-
-# Enter a context with an instance of the API client
-with ansible_events_api.ApiClient() as api_client:
-    # Create an instance of the API class
-    api_instance = default_api.DefaultApi(api_client)
-    project_id = 1 # int |
-    project_update = ProjectUpdate(
-        name="name_example",
-    ) # ProjectUpdate |
-
-    # example passing only required values which don't have defaults set
-    try:
-        # Read Project
-        api_response = api_instance.read_project_api_project_project_id_edit_patch(project_id, project_update)
-        pprint(api_response)
-    except ansible_events_api.ApiException as e:
-        print("Exception when calling DefaultApi->read_project_api_project_project_id_edit_patch: %s\n" % e)
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **int**|  |
- **project_update** | [**ProjectUpdate**](ProjectUpdate.md)|  |
-
-### Return type
-
-**bool, date, datetime, dict, float, int, list, str, none_type**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful Response |  -  |
-**422** | Validation Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **read_project_api_project_project_id_get**
-> ProjectRead read_project_api_project_project_id_get(project_id)
-
-Read Project
-
-### Example
-
-
-```python
-import time
-import ansible_events_api
-from ansible_events_api.api import default_api
-from ansible_events_api.model.http_validation_error import HTTPValidationError
-from ansible_events_api.model.project_read import ProjectRead
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1837,10 +2053,10 @@ with ansible_events_api.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Read Project
-        api_response = api_instance.read_project_api_project_project_id_get(project_id)
+        api_response = api_instance.read_project(project_id)
         pprint(api_response)
     except ansible_events_api.ApiException as e:
-        print("Exception when calling DefaultApi->read_project_api_project_project_id_get: %s\n" % e)
+        print("Exception when calling DefaultApi->read_project: %s\n" % e)
 ```
 
 
@@ -1852,7 +2068,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProjectRead**](ProjectRead.md)
+[**ProjectDetail**](ProjectDetail.md)
 
 ### Authorization
 
@@ -2065,8 +2281,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **show_rule_api_rules_rule_id_get**
-> bool, date, datetime, dict, float, int, list, str, none_type show_rule_api_rules_rule_id_get(rule_id)
+# **show_rule**
+> Rule show_rule(rule_id)
 
 Show Rule
 
@@ -2078,6 +2294,7 @@ import time
 import ansible_events_api
 from ansible_events_api.api import default_api
 from ansible_events_api.model.http_validation_error import HTTPValidationError
+from ansible_events_api.model.rule import Rule
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -2095,10 +2312,10 @@ with ansible_events_api.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Show Rule
-        api_response = api_instance.show_rule_api_rules_rule_id_get(rule_id)
+        api_response = api_instance.show_rule(rule_id)
         pprint(api_response)
     except ansible_events_api.ApiException as e:
-        print("Exception when calling DefaultApi->show_rule_api_rules_rule_id_get: %s\n" % e)
+        print("Exception when calling DefaultApi->show_rule: %s\n" % e)
 ```
 
 
@@ -2110,7 +2327,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+[**Rule**](Rule.md)
 
 ### Authorization
 
@@ -2119,6 +2336,78 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_project**
+> ProjectRead update_project(project_id, project_update)
+
+Update Project
+
+### Example
+
+
+```python
+import time
+import ansible_events_api
+from ansible_events_api.api import default_api
+from ansible_events_api.model.project_update import ProjectUpdate
+from ansible_events_api.model.http_validation_error import HTTPValidationError
+from ansible_events_api.model.project_read import ProjectRead
+from pprint import pprint
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with ansible_events_api.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    project_id = 1 # int |
+    project_update = ProjectUpdate(
+        name="name_example",
+    ) # ProjectUpdate |
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Update Project
+        api_response = api_instance.update_project(project_id, project_update)
+        pprint(api_response)
+    except ansible_events_api.ApiException as e:
+        print("Exception when calling DefaultApi->update_project: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **int**|  |
+ **project_update** | [**ProjectUpdate**](ProjectUpdate.md)|  |
+
+### Return type
+
+[**ProjectRead**](ProjectRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 

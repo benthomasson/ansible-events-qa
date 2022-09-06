@@ -8,7 +8,9 @@
 # import sys
 # sys.setrecursionlimit(n)
 from ansible_events_api.model.activation import Activation
+from ansible_events_api.model.activation_instance import ActivationInstance
 from ansible_events_api.model.activation_log import ActivationLog
+from ansible_events_api.model.bearer_response import BearerResponse
 from ansible_events_api.model.body_reset_forgot_password_api_auth_forgot_password_post import (
     BodyResetForgotPasswordApiAuthForgotPasswordPost,
 )
@@ -24,13 +26,20 @@ from ansible_events_api.model.body_verify_verify_api_auth_verify_post import (
 from ansible_events_api.model.detail import Detail
 from ansible_events_api.model.error_model import ErrorModel
 from ansible_events_api.model.extravars import Extravars
+from ansible_events_api.model.extravars_ref import ExtravarsRef
 from ansible_events_api.model.http_validation_error import HTTPValidationError
 from ansible_events_api.model.inventory import Inventory
+from ansible_events_api.model.inventory_ref import InventoryRef
 from ansible_events_api.model.job_instance import JobInstance
 from ansible_events_api.model.location_inner import LocationInner
+from ansible_events_api.model.playbook_ref import PlaybookRef
 from ansible_events_api.model.project_create import ProjectCreate
+from ansible_events_api.model.project_detail import ProjectDetail
+from ansible_events_api.model.project_list import ProjectList
 from ansible_events_api.model.project_read import ProjectRead
 from ansible_events_api.model.project_update import ProjectUpdate
+from ansible_events_api.model.rule import Rule
+from ansible_events_api.model.rule_ruleset_ref import RuleRulesetRef
 from ansible_events_api.model.rulebook import Rulebook
 from ansible_events_api.model.user_create import UserCreate
 from ansible_events_api.model.user_read import UserRead

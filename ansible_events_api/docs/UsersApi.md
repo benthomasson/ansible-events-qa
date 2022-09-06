@@ -19,6 +19,7 @@ Users:Current User
 ### Example
 
 * Api Key Authentication (APIKeyCookie):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import time
@@ -42,6 +43,12 @@ configuration.api_key['APIKeyCookie'] = 'YOUR_API_KEY'
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyCookie'] = 'Bearer'
+
+# Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # Enter a context with an instance of the API client
 with ansible_events_api.ApiClient(configuration) as api_client:
@@ -67,7 +74,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[APIKeyCookie](../README.md#APIKeyCookie)
+[APIKeyCookie](../README.md#APIKeyCookie), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -92,6 +99,7 @@ Users:Delete User
 ### Example
 
 * Api Key Authentication (APIKeyCookie):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import time
@@ -115,6 +123,12 @@ configuration.api_key['APIKeyCookie'] = 'YOUR_API_KEY'
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyCookie'] = 'Bearer'
+
+# Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # Enter a context with an instance of the API client
 with ansible_events_api.ApiClient(configuration) as api_client:
@@ -143,7 +157,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyCookie](../README.md#APIKeyCookie)
+[APIKeyCookie](../README.md#APIKeyCookie), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -171,6 +185,7 @@ Users:Patch Current User
 ### Example
 
 * Api Key Authentication (APIKeyCookie):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import time
@@ -197,6 +212,12 @@ configuration.api_key['APIKeyCookie'] = 'YOUR_API_KEY'
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyCookie'] = 'Bearer'
+
+# Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # Enter a context with an instance of the API client
 with ansible_events_api.ApiClient(configuration) as api_client:
@@ -232,7 +253,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyCookie](../README.md#APIKeyCookie)
+[APIKeyCookie](../README.md#APIKeyCookie), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -259,6 +280,7 @@ Users:Patch User
 ### Example
 
 * Api Key Authentication (APIKeyCookie):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import time
@@ -285,6 +307,12 @@ configuration.api_key['APIKeyCookie'] = 'YOUR_API_KEY'
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyCookie'] = 'Bearer'
+
+# Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # Enter a context with an instance of the API client
 with ansible_events_api.ApiClient(configuration) as api_client:
@@ -322,7 +350,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyCookie](../README.md#APIKeyCookie)
+[APIKeyCookie](../README.md#APIKeyCookie), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -351,6 +379,7 @@ Users:User
 ### Example
 
 * Api Key Authentication (APIKeyCookie):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import time
@@ -375,6 +404,12 @@ configuration.api_key['APIKeyCookie'] = 'YOUR_API_KEY'
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyCookie'] = 'Bearer'
+
+# Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # Enter a context with an instance of the API client
 with ansible_events_api.ApiClient(configuration) as api_client:
@@ -404,7 +439,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyCookie](../README.md#APIKeyCookie)
+[APIKeyCookie](../README.md#APIKeyCookie), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
