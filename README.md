@@ -70,6 +70,8 @@ You can then use the encrypted value by specifying it with the following pattern
 
 The encryption uses `cryptography.fernet` which is an easy and reliable symmetric encryption based on AES cipher.
 
+If you add some encrypted value, please add the `#gitleaks:allow` comment in the same line to avoid a false positive for the RH gitleaks scanner used in this project.
+
 You can use `aeqe` command to encrypt or decrypt values:
 
 ```shell

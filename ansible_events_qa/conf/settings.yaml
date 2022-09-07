@@ -3,11 +3,11 @@ default:
   users:
     qa:
       username: qa@redhat.com
-      password: password
+      password: password #gitleaks:allow
     admin:
       username: admin@redhat.com
       # password encrypted
-      password: "!fernet:gAAAAABjD2hLMOOBcLjPgBD-6wYJgfZper2zJ5d7mEYCKUpMyZlkUNIxHJR78FPPvauuOICbr94K_NrlX2PCNkobMIljXpZD5Q=="
+      password: "!fernet:gAAAAABjD2hLMOOBcLjPgBD-6wYJgfZper2zJ5d7mEYCKUpMyZlkUNIxHJR78FPPvauuOICbr94K_NrlX2PCNkobMIljXpZD5Q==" #gitleaks:allow
   api:
     host: localhost:8080
     scheme: http
