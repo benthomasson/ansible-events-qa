@@ -1,0 +1,13 @@
+---
+eda_ui_source_path: "{{ ansible_env.HOME }}/ansible-events-ui"
+eda_ui_docker_path: "{{ eda_ui_source_path }}/tools/docker"
+eda_ui_repo_url: https://github.com/benthomasson/ansible-events-ui.git
+eda_ui_repo_version: main
+eda_ui_compose_file: docker-compose.yml
+eda_ui_purge_data: false
+eda_ui_admin_user: qa@redhat.com
+eda_ui_admin_password: password
+eda_ui_port: 8080
+eda_ui_devel_library: 0
+container_registry_username: ""
+container_registry_password: ""

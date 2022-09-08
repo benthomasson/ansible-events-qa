@@ -1,0 +1,44 @@
+---
+- name: packages are installed
+  ansible.builtin.dnf:
+    name: "{{ packages }}"
+    state: present
+  become: true
+
+- name: docker-compose is installed
+  ansible.builtin.pip:
+    name: docker-compose
+    extra_args: --user
+
+- name: podman.socket is enabled for {{ ansible_user }}
+  ansible.builtin.systemd:
+    state: started
+    enabled: true
+    name: podman.socket
+    scope: user
+
+- name: DOCKER_HOST var is set for {{ ansible_user }}
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    search_string: "export DOCKER_HOST"
+    line: "export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock"
+
+- name: linger is enabled for {{ ansible_user }}
+  block:
+    - name: check if linger is already enabled for user {{ ansible_user }}
+      ansible.builtin.stat:
+        path: /var/lib/systemd/linger/{{ ansible_user }}
+      register: linger_status
+
+    - name: enable linger for user {{ ansible_user }}
+      become: true
+      ansible.builtin.command: "loginctl enable-linger {{ ansible_user }}"
+      when: not linger_status.stat.exists
+
+- name: ensure RuntimeDirectorySize is configured
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: "RuntimeDirectorySize"
+    line: RuntimeDirectorySize={{ runtime_dir_size }}
+  notify: restart systemd-logind

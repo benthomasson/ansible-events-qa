@@ -1,0 +1,6 @@
+---
+packages:
+  - podman
+  - podman-docker
+  - python3-pip
+  - git

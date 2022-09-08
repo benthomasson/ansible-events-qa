@@ -1,0 +1,60 @@
+---
+- name: deploy the app
+  block:
+    - name: fetch latest code
+      ansible.builtin.git:
+        repo: "{{ eda_ui_repo_url }}"
+        dest: "{{ eda_ui_source_path }}"
+        version: "{{ eda_ui_repo_version }}"
+        force: true
+
+    - name: Login to docker.io registry
+      containers.podman.podman_login:
+        username: "{{ container_registry_username }}"
+        password: "{{ container_registry_password }}"
+        registry: docker.io
+      when: container_registry_username and container_registry_password is defined
+
+    - name: purge existing volumes
+      community.docker.docker_compose:
+        project_src: "{{ eda_ui_docker_path }}"
+        files: "{{ eda_ui_compose_file }}"
+        state: absent
+        remove_volumes: true
+      when: eda_ui_purge_data
+
+    - name: build the container images
+      ansible.builtin.command:
+        cmd: docker-compose build --build-arg {{ eda_ui_devel_library }}
+        chdir: "{{ eda_ui_docker_path }}"
+      changed_when: true
+
+    - name: bring up the containers
+      community.docker.docker_compose:
+        project_src: "{{ eda_ui_docker_path }}"
+        files: "{{ eda_ui_compose_file }}"
+        build: false
+        recreate: always
+
+    # TODO: remove this task when EDA
+    # provides user accounts by default.
+    - name: web ui account is configured
+      ansible.builtin.uri:
+        url: http://{{ ansible_hostname }}:{{ eda_ui_port }}/api/auth/register
+        method: POST
+        body: '{"email": "{{ eda_ui_admin_user }}", "password": "{{ eda_ui_admin_password }}"}'
+        body_format: json
+        status_code: 201
+      register: result
+      failed_when: result.status == 422
+  tags: deploy
+
+- name: teardown the containers
+  community.docker.docker_compose:
+    project_src: "{{ eda_ui_docker_path }}"
+    files: "{{ eda_ui_compose_file }}"
+    state: absent
+    remove_volumes: "{{ true if eda_ui_purge_data else false }}"
+  tags:
+    - teardown
+    - never

@@ -1,0 +1,56 @@
+@Library(['aap-jenkins-shared-library']) _
+
+pipeline {
+    agent {
+        kubernetes {
+            yaml libraryResource('pod_templates/unpriv-ansible-pod.yaml')
+        }
+    }
+
+    parameters {
+        booleanParam(
+            defaultValue: false,
+            description: 'Enable it to purge all data. Use it carefully.',
+            name: 'purge_data'
+        )
+    }
+
+    stages {
+        stage('Deploy EDA devel') {
+            environment {
+                SSH_KEY = credentials('github-ansible-jenkins-nopassphrase')
+                DOCKER_CREDS = credentials('docker_registry_credentials')
+                ANSIBLE_CONFIG = 'tools/provisioner/ansible.cfg'
+            }
+            steps {
+                container('aapqa-ansible') {
+                    checkout(
+                        [
+                            $class: 'GitSCM',
+                            branches: [[name: '*/main']],
+                            extensions: [],
+                            userRemoteConfigs: [
+                                [
+                                    url: 'https://github.com/Alex-Izquierdo/ansible-events-qa.git'
+                                ]
+                            ]
+                        ]
+                    )
+
+                    script {
+                        ansible_vars = [
+                            'eda_ui_devel_library': 1,
+                            'container_registry_username': "${env.DOCKER_CREDS_USR}",
+                            'container_registry_password': "${env.DOCKER_CREDS_PSW}",
+                            'eda_ui_purge_data': params.purge_data,
+                        ]
+                    }
+
+                    writeJSON file: 'vars.json', json: ansible_vars
+
+                    sh "ansible-playbook -v --private-key '$SSH_KEY' -i tools/provisioner/inventory/devel.yml tools/provisioner/provisioner.yml -e@vars.json --tags deploy"
+                }
+            }
+        }
+    }
+}

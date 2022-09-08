@@ -1,0 +1,11 @@
+---
+- name: Deploy ansible-events-ui app
+  hosts: all
+
+  roles:
+    - role: eda_container
+
+  post_tasks:
+    - ansible.builtin.debug:
+        msg:
+          - "The web UI is accessible via http://{{ ansible_host }}:{{ eda_ui_port }}"
