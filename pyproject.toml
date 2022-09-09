@@ -53,6 +53,7 @@ dev = [
   "flake8-eradicate",
   "flake8-debugger",
   "flake8-comprehensions",
+  "pyjwt",
 ]
 
 [project.urls]

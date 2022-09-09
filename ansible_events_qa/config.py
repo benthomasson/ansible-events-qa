@@ -12,8 +12,18 @@ from ansible_events_qa.utils.fernet import decrypt
 DEFAULT_CONFIG_FILE = f"{utils.CONFIG_PATH}/settings.yaml"
 
 
+class Settings(dynaconf.LazySettings):
+    """
+    Dynaconf settings object extended to provide convenient values
+    """
+
+    @property
+    def base_url(self):
+        return f"{self.http.scheme}://{self.http.host}"  # type: ignore comment;
+
+
 def decrypt_values(
-    data: Union[dict, list, dynaconf.LazySettings],
+    data: Union[dict, list, Settings],
     password: Optional[str] = None,
 ):
     """
@@ -21,8 +31,8 @@ def decrypt_values(
     under the format: "!fernat:some-encrypted-string" and decrypt it
     """
 
-    if isinstance(data, dict) or isinstance(data, dynaconf.LazySettings):
-        for key, value in data.items():
+    if isinstance(data, dict) or isinstance(data, Settings):
+        for key, value in data.items():  # type: ignore comment;
             if isinstance(value, str) and value.startswith("!fernet:"):
                 if password is None:
                     raise ValueError(
@@ -40,7 +50,7 @@ def decrypt_values(
                 decrypt_values(item, password)
 
 
-_config = dynaconf.LazySettings(
+_config = Settings(
     env="default",
     environments=True,
     load_dotenv=True,
@@ -51,7 +61,7 @@ _config = dynaconf.LazySettings(
     env_switcher="AEQE_ENV",
 )
 
-fernet_password = _config.get("fernet_password", None)
+fernet_password = _config.get("fernet_password", None)  # type: ignore comment;
 decrypt_values(_config, fernet_password)
 
 config = _config

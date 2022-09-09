@@ -7,7 +7,8 @@ default:
     admin:
       username: admin@redhat.com
       # password encrypted
-      password: "!fernet:gAAAAABjD2hLMOOBcLjPgBD-6wYJgfZper2zJ5d7mEYCKUpMyZlkUNIxHJR78FPPvauuOICbr94K_NrlX2PCNkobMIljXpZD5Q==" #gitleaks:allow
-  api:
+      password: "!fernet:gAAAAABjD2hLMOOBcLjPgBD-6wYJgfZper2zJ5d7mEYCKUpMyZlkUNIxHJR78FPPvauuOICbr94K_NrlX2PCNkobMIljXpZD5Q=="
+  http:
     host: localhost:8080
     scheme: http
+    verify_ssl: False
