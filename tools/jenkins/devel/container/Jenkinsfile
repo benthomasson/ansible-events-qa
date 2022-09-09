@@ -48,7 +48,7 @@ pipeline {
 
                     writeJSON file: 'vars.json', json: ansible_vars
 
-                    sh "ansible-playbook -v --private-key '$SSH_KEY' -i tools/provisioner/inventory/devel.yml tools/provisioner/provisioner.yml -e@vars.json --tags deploy"
+                    sh "ansible-playbook -v --private-key '$SSH_KEY' -i tools/provisioner/inventory/devel_container.yml tools/provisioner/provisioner.yml -e@vars.json --tags deploy"
                 }
             }
         }

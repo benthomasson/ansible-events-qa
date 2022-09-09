@@ -1,6 +1,6 @@
 ---
 all:
   hosts:
-    devel:
+    devel_container:
       ansible_host: 10.0.153.228
       ansible_user: cloud-user
