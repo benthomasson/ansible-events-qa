@@ -54,6 +54,7 @@ dev = [
   "flake8-debugger",
   "flake8-comprehensions",
   "pyjwt",
+  "nanoid",
 ]
 
 [project.urls]

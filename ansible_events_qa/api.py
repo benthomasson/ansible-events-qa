@@ -8,6 +8,7 @@ from functools import cached_property
 from functools import lru_cache
 
 import jwt
+import nanoid
 
 import ansible_events_api.apis as apis
 import ansible_events_qa.exceptions as exceptions
@@ -145,6 +146,51 @@ class ProjectsApi(BaseApi):
     def list(self) -> Response:  # noqa: A003
         operation = "list_projects"
         return self.run(operation)
+
+    def show(self, project_id: int, **kwargs) -> Response:
+        """
+        Retrieves a project
+        """
+        operation = "read_project"
+        return self.run(operation, project_id, **kwargs)
+
+    def create(
+        self,
+        name: typing.Optional[str] = None,
+        description: typing.Optional[str] = None,
+        url: typing.Optional[str] = None,
+        **kwargs,
+    ) -> Response:
+        """
+        Creates a project
+        """
+        operation = "create_projects"
+
+        if name is None:
+            name = f"QE-project-{nanoid.generate()}"
+        if description is None:
+            description = "Sample project created by QE test suite"
+        if url is None:
+            url = config.default_project_url  # type: ignore comment;
+
+        payload = {"name": name, "description": description, "url": url}
+
+        return self.run(operation, payload, **kwargs)
+
+    def delete(self, project_id: int, **kwargs) -> Response:
+        """
+        Deletes a project
+        """
+        operation = "delete_project"
+
+        return self.run(operation, project_id, **kwargs)
+
+    def update(self, project_id: int, name: str, **kwargs):
+        operation = "update_project"
+
+        payload = {"name": name}
+
+        return self.run(operation, project_id, payload, **kwargs)
 
 
 A = typing.TypeVar("A", bound="ApiClient")
