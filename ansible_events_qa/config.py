@@ -54,7 +54,6 @@ _config = Settings(
     env="default",
     environments=True,
     load_dotenv=True,
-    project_root=utils.PROJECT_ROOT,
     envvar_prefix="AEQE",
     root_path=utils.CONFIG_PATH,
     settings_files=[DEFAULT_CONFIG_FILE],
