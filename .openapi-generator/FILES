@@ -6,9 +6,12 @@ ansible_events_api/api/users_api.py
 ansible_events_api/api_client.py
 ansible_events_api/apis/__init__.py
 ansible_events_api/configuration.py
-ansible_events_api/docs/Activation.md
+ansible_events_api/docs/ActivationBaseRead.md
+ansible_events_api/docs/ActivationCreate.md
 ansible_events_api/docs/ActivationInstance.md
 ansible_events_api/docs/ActivationLog.md
+ansible_events_api/docs/ActivationRead.md
+ansible_events_api/docs/ActivationUpdate.md
 ansible_events_api/docs/AuthApi.md
 ansible_events_api/docs/BearerResponse.md
 ansible_events_api/docs/BodyResetForgotPasswordApiAuthForgotPasswordPost.md
@@ -41,9 +44,12 @@ ansible_events_api/docs/UsersApi.md
 ansible_events_api/docs/ValidationError.md
 ansible_events_api/exceptions.py
 ansible_events_api/model/__init__.py
-ansible_events_api/model/activation.py
+ansible_events_api/model/activation_base_read.py
+ansible_events_api/model/activation_create.py
 ansible_events_api/model/activation_instance.py
 ansible_events_api/model/activation_log.py
+ansible_events_api/model/activation_read.py
+ansible_events_api/model/activation_update.py
 ansible_events_api/model/bearer_response.py
 ansible_events_api/model/body_reset_forgot_password_api_auth_forgot_password_post.py
 ansible_events_api/model/body_reset_reset_password_api_auth_reset_password_post.py

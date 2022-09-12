@@ -37,16 +37,146 @@
         }
       }
     },
-    "/api/rules/": {
-      "get": {
-        "summary": "List Rules",
-        "operationId": "list_rules_api_rules__get",
+    "/api/activations/": {
+      "post": {
+        "summary": "Create Activation",
+        "operationId": "create_activation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivationCreate"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ActivationBaseRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/activation/{activation_id}": {
+      "get": {
+        "summary": "Read Activation",
+        "operationId": "show_activation",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Activation Id",
+              "type": "integer"
+            },
+            "name": "activation_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivationRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Activation",
+        "operationId": "update_activation",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Activation Id",
+              "type": "integer"
+            },
+            "name": "activation_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivationUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivationBaseRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/rules/": {
+      "get": {
+        "summary": "List Rules",
+        "operationId": "list_rules",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Rules",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Rule"
+                  }
+                }
               }
             }
           }
@@ -56,7 +186,7 @@
     "/api/rules/{rule_id}/": {
       "get": {
         "summary": "Show Rule",
-        "operationId": "show_rule_api_rules__rule_id___get",
+        "operationId": "show_rule",
         "parameters": [
           {
             "required": true,
@@ -73,7 +203,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/Rule"
+                }
               }
             }
           },
@@ -93,23 +225,27 @@
     "/api/projects/": {
       "get": {
         "summary": "List Projects",
-        "operationId": "list_projects_api_projects__get",
+        "operationId": "list_projects",
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "title": "Response List Projects",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectList"
+                  }
+                }
               }
             }
           }
         }
-      }
-    },
-    "/api/new-project/": {
+      },
       "post": {
         "summary": "Create Project",
-        "operationId": "create_project_api_new_project__post",
+        "operationId": "create_projects",
         "requestBody": {
           "content": {
             "application/json": {
@@ -120,43 +256,6 @@
           },
           "required": true
         },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/project/{project_id}": {
-      "get": {
-        "summary": "Read Project",
-        "operationId": "read_project_api_project__project_id__get",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Project Id",
-              "type": "integer"
-            },
-            "name": "project_id",
-            "in": "path"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -181,10 +280,47 @@
         }
       }
     },
-    "/api/project/{project_id}/edit": {
-      "patch": {
+    "/api/projects/{project_id}": {
+      "get": {
         "summary": "Read Project",
-        "operationId": "read_project_api_project__project_id__edit_patch",
+        "operationId": "read_project",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Id",
+              "type": "integer"
+            },
+            "name": "project_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Project",
+        "operationId": "update_project",
         "parameters": [
           {
             "required": true,
@@ -211,7 +347,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectRead"
+                }
               }
             }
           },
@@ -372,7 +510,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Activation"
+                "$ref": "#/components/schemas/ActivationInstance"
               }
             }
           },
@@ -490,6 +628,38 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/project/{project_id}": {
+      "delete": {
+        "summary": "Delete Project",
+        "operationId": "delete_project",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Id",
+              "type": "integer"
+            },
+            "name": "project_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
@@ -764,6 +934,36 @@
             }
           }
         }
+      },
+      "delete": {
+        "summary": "Delete Activation Instance",
+        "operationId": "delete_activation_instance",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Activation Instance Id",
+              "type": "integer"
+            },
+            "name": "activation_instance_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/job_instances/": {
@@ -841,6 +1041,36 @@
                 "schema": {}
               }
             }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Job Instance",
+        "operationId": "delete_job_instance",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Job Instance Id",
+              "type": "integer"
+            },
+            "name": "job_instance_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
           },
           "422": {
             "description": "Validation Error",
@@ -1015,6 +1245,108 @@
         "security": [
           {
             "APIKeyCookie": []
+          },
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/auth/bearer/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Auth:Bearer.Login",
+        "operationId": "auth_bearer_login_api_auth_bearer_login_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_auth_bearer_login_api_auth_bearer_login_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BearerResponse"
+                },
+                "example": {
+                  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOTIyMWZmYzktNjQwZi00MzcyLTg2ZDMtY2U2NDJjYmE1NjAzIiwiYXVkIjoiZmFzdGFwaS11c2VyczphdXRoIiwiZXhwIjoxNTcxNTA0MTkzfQ.M10bjOe45I5Ncu_uXvOmVV8QxnL-nZfcH96U90JaocI",
+                  "token_type": "bearer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                },
+                "examples": {
+                  "LOGIN_BAD_CREDENTIALS": {
+                    "summary": "Bad credentials or the user is inactive.",
+                    "value": {
+                      "detail": "LOGIN_BAD_CREDENTIALS"
+                    }
+                  },
+                  "LOGIN_USER_NOT_VERIFIED": {
+                    "summary": "The user is not verified.",
+                    "value": {
+                      "detail": "LOGIN_USER_NOT_VERIFIED"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/bearer/logout": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Auth:Bearer.Logout",
+        "operationId": "auth_bearer_logout_api_auth_bearer_logout_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Missing token or inactive user."
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          },
+          {
+            "OAuth2PasswordBearer": []
           }
         ]
       }
@@ -1321,6 +1653,9 @@
         "security": [
           {
             "APIKeyCookie": []
+          },
+          {
+            "OAuth2PasswordBearer": []
           }
         ]
       },
@@ -1395,6 +1730,9 @@
         "security": [
           {
             "APIKeyCookie": []
+          },
+          {
+            "OAuth2PasswordBearer": []
           }
         ]
       }
@@ -1450,6 +1788,9 @@
         "security": [
           {
             "APIKeyCookie": []
+          },
+          {
+            "OAuth2PasswordBearer": []
           }
         ]
       },
@@ -1496,6 +1837,9 @@
         "security": [
           {
             "APIKeyCookie": []
+          },
+          {
+            "OAuth2PasswordBearer": []
           }
         ]
       },
@@ -1586,6 +1930,9 @@
         "security": [
           {
             "APIKeyCookie": []
+          },
+          {
+            "OAuth2PasswordBearer": []
           }
         ]
       }
@@ -1607,20 +1954,170 @@
         "security": [
           {
             "APIKeyCookie": []
+          },
+          {
+            "OAuth2PasswordBearer": []
           }
         ]
+      }
+    },
+    "/api/ssh-public-key": {
+      "get": {
+        "summary": "Ssh Public Key",
+        "operationId": "ssh_public_key_api_ssh_public_key_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
-      "Activation": {
-        "title": "Activation",
+      "ActivationBaseRead": {
+        "title": "ActivationBaseRead",
+        "required": [
+          "name",
+          "execution_env_id",
+          "rulebook_id",
+          "inventory_id",
+          "restart_policy_id",
+          "playbook_id",
+          "activation_enabled",
+          "extra_var_id",
+          "working_directory",
+          "execution_environment",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "execution_env_id": {
+            "title": "Execution Env Id",
+            "type": "integer"
+          },
+          "rulebook_id": {
+            "title": "Rulebook Id",
+            "type": "integer"
+          },
+          "inventory_id": {
+            "title": "Inventory Id",
+            "type": "integer"
+          },
+          "restart_policy_id": {
+            "title": "Restart Policy Id",
+            "type": "integer"
+          },
+          "playbook_id": {
+            "title": "Playbook Id",
+            "type": "integer"
+          },
+          "activation_enabled": {
+            "title": "Activation Enabled",
+            "type": "boolean"
+          },
+          "extra_var_id": {
+            "title": "Extra Var Id",
+            "type": "integer"
+          },
+          "working_directory": {
+            "title": "Working Directory",
+            "type": "string"
+          },
+          "execution_environment": {
+            "title": "Execution Environment",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          }
+        }
+      },
+      "ActivationCreate": {
+        "title": "ActivationCreate",
+        "required": [
+          "name",
+          "execution_env_id",
+          "rulebook_id",
+          "inventory_id",
+          "restart_policy_id",
+          "playbook_id",
+          "activation_enabled",
+          "extra_var_id",
+          "working_directory",
+          "execution_environment"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "execution_env_id": {
+            "title": "Execution Env Id",
+            "type": "integer"
+          },
+          "rulebook_id": {
+            "title": "Rulebook Id",
+            "type": "integer"
+          },
+          "inventory_id": {
+            "title": "Inventory Id",
+            "type": "integer"
+          },
+          "restart_policy_id": {
+            "title": "Restart Policy Id",
+            "type": "integer"
+          },
+          "playbook_id": {
+            "title": "Playbook Id",
+            "type": "integer"
+          },
+          "activation_enabled": {
+            "title": "Activation Enabled",
+            "type": "boolean"
+          },
+          "extra_var_id": {
+            "title": "Extra Var Id",
+            "type": "integer"
+          },
+          "working_directory": {
+            "title": "Working Directory",
+            "type": "string"
+          },
+          "execution_environment": {
+            "title": "Execution Environment",
+            "type": "string"
+          }
+        }
+      },
+      "ActivationInstance": {
+        "title": "ActivationInstance",
         "required": [
           "name",
           "rulebook_id",
           "inventory_id",
-          "extra_var_id"
+          "extra_var_id",
+          "working_directory",
+          "execution_environment"
         ],
         "type": "object",
         "properties": {
@@ -1643,6 +2140,14 @@
           "extra_var_id": {
             "title": "Extra Var Id",
             "type": "integer"
+          },
+          "working_directory": {
+            "title": "Working Directory",
+            "type": "string"
+          },
+          "execution_environment": {
+            "title": "Execution Environment",
+            "type": "string"
           }
         }
       },
@@ -1665,6 +2170,205 @@
           "id": {
             "title": "Id",
             "type": "integer"
+          }
+        }
+      },
+      "ActivationRead": {
+        "title": "ActivationRead",
+        "required": [
+          "name",
+          "execution_env_id",
+          "rulebook_id",
+          "inventory_id",
+          "restart_policy_id",
+          "playbook_id",
+          "activation_enabled",
+          "extra_var_id",
+          "working_directory",
+          "execution_environment",
+          "id",
+          "restarted_count",
+          "created_at",
+          "modified_at",
+          "rulebook_name",
+          "inventory_name",
+          "extra_var_name",
+          "playbook_name",
+          "restart_policy_name",
+          "execution_env_url"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "execution_env_id": {
+            "title": "Execution Env Id",
+            "type": "integer"
+          },
+          "rulebook_id": {
+            "title": "Rulebook Id",
+            "type": "integer"
+          },
+          "inventory_id": {
+            "title": "Inventory Id",
+            "type": "integer"
+          },
+          "restart_policy_id": {
+            "title": "Restart Policy Id",
+            "type": "integer"
+          },
+          "playbook_id": {
+            "title": "Playbook Id",
+            "type": "integer"
+          },
+          "activation_enabled": {
+            "title": "Activation Enabled",
+            "type": "boolean"
+          },
+          "extra_var_id": {
+            "title": "Extra Var Id",
+            "type": "integer"
+          },
+          "working_directory": {
+            "title": "Working Directory",
+            "type": "string"
+          },
+          "execution_environment": {
+            "title": "Execution Environment",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "activation_status": {
+            "title": "Activation Status",
+            "type": "string"
+          },
+          "restarted_at": {
+            "title": "Restarted At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "restarted_count": {
+            "title": "Restarted Count",
+            "type": "integer"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "modified_at": {
+            "title": "Modified At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "rulebook_name": {
+            "title": "Rulebook Name",
+            "type": "string"
+          },
+          "inventory_name": {
+            "title": "Inventory Name",
+            "type": "string"
+          },
+          "extra_var_name": {
+            "title": "Extra Var Name",
+            "type": "string"
+          },
+          "playbook_name": {
+            "title": "Playbook Name",
+            "type": "string"
+          },
+          "restart_policy_name": {
+            "title": "Restart Policy Name",
+            "type": "string"
+          },
+          "execution_env_url": {
+            "title": "Execution Env Url",
+            "type": "string"
+          }
+        }
+      },
+      "ActivationUpdate": {
+        "title": "ActivationUpdate",
+        "required": [
+          "name",
+          "activation_enabled"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "activation_enabled": {
+            "title": "Activation Enabled",
+            "type": "boolean"
+          }
+        }
+      },
+      "BearerResponse": {
+        "title": "BearerResponse",
+        "required": [
+          "access_token",
+          "token_type"
+        ],
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "title": "Access Token",
+            "type": "string"
+          },
+          "token_type": {
+            "title": "Token Type",
+            "type": "string"
+          }
+        }
+      },
+      "Body_auth_bearer_login_api_auth_bearer_login_post": {
+        "title": "Body_auth_bearer_login_api_auth_bearer_login_post",
+        "required": [
+          "username",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "grant_type": {
+            "title": "Grant Type",
+            "pattern": "password",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          },
+          "scope": {
+            "title": "Scope",
+            "type": "string",
+            "default": ""
+          },
+          "client_id": {
+            "title": "Client Id",
+            "type": "string"
+          },
+          "client_secret": {
+            "title": "Client Secret",
+            "type": "string"
           }
         }
       },
@@ -1808,6 +2512,23 @@
           }
         }
       },
+      "ExtravarsRef": {
+        "title": "ExtravarsRef",
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          }
+        }
+      },
       "HTTPValidationError": {
         "title": "HTTPValidationError",
         "type": "object",
@@ -1843,6 +2564,23 @@
           }
         }
       },
+      "InventoryRef": {
+        "title": "InventoryRef",
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          }
+        }
+      },
       "JobInstance": {
         "title": "JobInstance",
         "required": [
@@ -1867,6 +2605,23 @@
           "extra_var_id": {
             "title": "Extra Var Id",
             "type": "integer"
+          }
+        }
+      },
+      "PlaybookRef": {
+        "title": "PlaybookRef",
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
           }
         }
       },
@@ -1897,6 +2652,104 @@
           },
           "description": {
             "title": "Description",
+            "type": "string"
+          }
+        }
+      },
+      "ProjectDetail": {
+        "title": "ProjectDetail",
+        "required": [
+          "url",
+          "name",
+          "description",
+          "created_at",
+          "modified_at",
+          "rulesets",
+          "inventories",
+          "vars",
+          "playbooks"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "git_hash": {
+            "title": "Git Hash",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "modified_at": {
+            "title": "Modified At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "rulesets": {
+            "title": "Rulesets",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RuleRulesetRef"
+            }
+          },
+          "inventories": {
+            "title": "Inventories",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InventoryRef"
+            }
+          },
+          "vars": {
+            "title": "Vars",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtravarsRef"
+            }
+          },
+          "playbooks": {
+            "title": "Playbooks",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlaybookRef"
+            }
+          }
+        }
+      },
+      "ProjectList": {
+        "title": "ProjectList",
+        "required": [
+          "id",
+          "url",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
             "type": "string"
           }
         }
@@ -1951,6 +2804,49 @@
         ],
         "type": "object",
         "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        }
+      },
+      "Rule": {
+        "title": "Rule",
+        "required": [
+          "id",
+          "action",
+          "ruleset"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "action": {
+            "title": "Action",
+            "type": "object"
+          },
+          "ruleset": {
+            "$ref": "#/components/schemas/RuleRulesetRef"
+          }
+        }
+      },
+      "RuleRulesetRef": {
+        "title": "RuleRulesetRef",
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
           "name": {
             "title": "Name",
             "type": "string"
@@ -2112,6 +3008,15 @@
         "type": "apiKey",
         "in": "cookie",
         "name": "fastapiusersauth"
+      },
+      "OAuth2PasswordBearer": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "scopes": {},
+            "tokenUrl": "api/auth/bearer/login"
+          }
+        }
       }
     }
   }

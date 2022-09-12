@@ -38,7 +38,10 @@ Method | HTTP request | Description
 [**read_rulebook_api_rulebooks_rulebook_id_get**](DefaultApi.md#read_rulebook_api_rulebooks_rulebook_id_get) | **GET** /api/rulebooks/{rulebook_id} | Read Rulebook
 [**read_rulebook_json_api_rulebook_json_rulebook_id_get**](DefaultApi.md#read_rulebook_json_api_rulebook_json_rulebook_id_get) | **GET** /api/rulebook_json/{rulebook_id} | Read Rulebook Json
 [**root_get**](DefaultApi.md#root_get) | **GET** / | Root
+[**show_activation**](DefaultApi.md#show_activation) | **GET** /api/activation/{activation_id} | Read Activation
 [**show_rule**](DefaultApi.md#show_rule) | **GET** /api/rules/{rule_id}/ | Show Rule
+[**ssh_public_key_api_ssh_public_key_get**](DefaultApi.md#ssh_public_key_api_ssh_public_key_get) | **GET** /api/ssh-public-key | Ssh Public Key
+[**update_activation**](DefaultApi.md#update_activation) | **PATCH** /api/activation/{activation_id} | Update Activation
 [**update_project**](DefaultApi.md#update_project) | **PATCH** /api/projects/{project_id} | Update Project
 
 
@@ -121,7 +124,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_activation**
-> Activation create_activation(activation)
+> ActivationBaseRead create_activation(activation_create)
 
 Create Activation
 
@@ -132,7 +135,8 @@ Create Activation
 import time
 import ansible_events_api
 from ansible_events_api.api import default_api
-from ansible_events_api.model.activation import Activation
+from ansible_events_api.model.activation_base_read import ActivationBaseRead
+from ansible_events_api.model.activation_create import ActivationCreate
 from ansible_events_api.model.http_validation_error import HTTPValidationError
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
@@ -146,8 +150,7 @@ configuration = ansible_events_api.Configuration(
 with ansible_events_api.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    activation = Activation(
-        id=1,
+    activation_create = ActivationCreate(
         name="name_example",
         description="description_example",
         execution_env_id=1,
@@ -157,12 +160,14 @@ with ansible_events_api.ApiClient() as api_client:
         playbook_id=1,
         activation_enabled=True,
         extra_var_id=1,
-    ) # Activation |
+        working_directory="working_directory_example",
+        execution_environment="execution_environment_example",
+    ) # ActivationCreate |
 
     # example passing only required values which don't have defaults set
     try:
         # Create Activation
-        api_response = api_instance.create_activation(activation)
+        api_response = api_instance.create_activation(activation_create)
         pprint(api_response)
     except ansible_events_api.ApiException as e:
         print("Exception when calling DefaultApi->create_activation: %s\n" % e)
@@ -173,11 +178,11 @@ with ansible_events_api.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **activation** | [**Activation**](Activation.md)|  |
+ **activation_create** | [**ActivationCreate**](ActivationCreate.md)|  |
 
 ### Return type
 
-[**Activation**](Activation.md)
+[**ActivationBaseRead**](ActivationBaseRead.md)
 
 ### Authorization
 
@@ -230,6 +235,8 @@ with ansible_events_api.ApiClient() as api_client:
         rulebook_id=1,
         inventory_id=1,
         extra_var_id=1,
+        working_directory="working_directory_example",
+        execution_environment="execution_environment_example",
     ) # ActivationInstance |
 
     # example passing only required values which don't have defaults set
@@ -2281,6 +2288,73 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **show_activation**
+> ActivationRead show_activation(activation_id)
+
+Read Activation
+
+### Example
+
+
+```python
+import time
+import ansible_events_api
+from ansible_events_api.api import default_api
+from ansible_events_api.model.activation_read import ActivationRead
+from ansible_events_api.model.http_validation_error import HTTPValidationError
+from pprint import pprint
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with ansible_events_api.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    activation_id = 1 # int |
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Read Activation
+        api_response = api_instance.show_activation(activation_id)
+        pprint(api_response)
+    except ansible_events_api.ApiException as e:
+        print("Exception when calling DefaultApi->show_activation: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **activation_id** | **int**|  |
+
+### Return type
+
+[**ActivationRead**](ActivationRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **show_rule**
 > Rule show_rule(rule_id)
 
@@ -2336,6 +2410,140 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ssh_public_key_api_ssh_public_key_get**
+> bool, date, datetime, dict, float, int, list, str, none_type ssh_public_key_api_ssh_public_key_get()
+
+Ssh Public Key
+
+### Example
+
+
+```python
+import time
+import ansible_events_api
+from ansible_events_api.api import default_api
+from pprint import pprint
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with ansible_events_api.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+
+    # example, this endpoint has no required or optional parameters
+    try:
+        # Ssh Public Key
+        api_response = api_instance.ssh_public_key_api_ssh_public_key_get()
+        pprint(api_response)
+    except ansible_events_api.ApiException as e:
+        print("Exception when calling DefaultApi->ssh_public_key_api_ssh_public_key_get: %s\n" % e)
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**bool, date, datetime, dict, float, int, list, str, none_type**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_activation**
+> ActivationBaseRead update_activation(activation_id, activation_update)
+
+Update Activation
+
+### Example
+
+
+```python
+import time
+import ansible_events_api
+from ansible_events_api.api import default_api
+from ansible_events_api.model.activation_base_read import ActivationBaseRead
+from ansible_events_api.model.http_validation_error import HTTPValidationError
+from ansible_events_api.model.activation_update import ActivationUpdate
+from pprint import pprint
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ansible_events_api.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with ansible_events_api.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    activation_id = 1 # int |
+    activation_update = ActivationUpdate(
+        name="name_example",
+        description="description_example",
+        activation_enabled=True,
+    ) # ActivationUpdate |
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Update Activation
+        api_response = api_instance.update_activation(activation_id, activation_update)
+        pprint(api_response)
+    except ansible_events_api.ApiException as e:
+        print("Exception when calling DefaultApi->update_activation: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **activation_id** | **int**|  |
+ **activation_update** | [**ActivationUpdate**](ActivationUpdate.md)|  |
+
+### Return type
+
+[**ActivationBaseRead**](ActivationBaseRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 

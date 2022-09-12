@@ -44,7 +44,7 @@ with ansible_events_api.ApiClient() as api_client:
     api_instance = auth_api.AuthApi(api_client)
     username = "username_example" # str |
     password = "password_example" # str |
-    grant_type = "passwor" # str |  (optional)
+    grant_type = "password" # str |  (optional)
     scope = "" # str |  (optional) if omitted the server will use the default value of ""
     client_id = "client_id_example" # str |  (optional)
     client_secret = "client_secret_example" # str |  (optional)
@@ -210,7 +210,7 @@ with ansible_events_api.ApiClient() as api_client:
     api_instance = auth_api.AuthApi(api_client)
     username = "username_example" # str |
     password = "password_example" # str |
-    grant_type = "passwor" # str |  (optional)
+    grant_type = "password" # str |  (optional)
     scope = "" # str |  (optional) if omitted the server will use the default value of ""
     client_id = "client_id_example" # str |  (optional)
     client_secret = "client_secret_example" # str |  (optional)

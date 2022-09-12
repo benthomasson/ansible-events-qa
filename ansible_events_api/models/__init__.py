@@ -7,9 +7,12 @@
 # or import this package, but before doing it, use:
 # import sys
 # sys.setrecursionlimit(n)
-from ansible_events_api.model.activation import Activation
+from ansible_events_api.model.activation_base_read import ActivationBaseRead
+from ansible_events_api.model.activation_create import ActivationCreate
 from ansible_events_api.model.activation_instance import ActivationInstance
 from ansible_events_api.model.activation_log import ActivationLog
+from ansible_events_api.model.activation_read import ActivationRead
+from ansible_events_api.model.activation_update import ActivationUpdate
 from ansible_events_api.model.bearer_response import BearerResponse
 from ansible_events_api.model.body_reset_forgot_password_api_auth_forgot_password_post import (
     BodyResetForgotPasswordApiAuthForgotPasswordPost,
